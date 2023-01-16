@@ -1,0 +1,25 @@
+---
+- name: Update cache
+  apt:
+   update_cache: yes
+
+- name: Install required packages
+  apt:
+   name: "{{ item }}"
+   state: latest
+   update_cache: yes
+  with_items:
+   - openjdk-8-jdk
+
+- name: copy nexus install file
+  copy: 
+   src: nexus_install.sh
+   dest: /tmp
+   owner: ubuntu
+   group: ubuntu
+   mode: 0644
+
+- name: Run nexus install script
+  command: sh /tmp/nexus_install.sh
+  ignore_errors: true
+

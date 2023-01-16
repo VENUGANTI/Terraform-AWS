@@ -1,0 +1,38 @@
+---
+- name: Update cache
+  apt:
+   update_cache: yes
+
+- name: Install required packages
+  apt:
+   name: "{{ item }}"
+   state: latest
+   update_cache: yes
+  with_items:
+   - openjdk-8-jre-headless
+   - ansible
+   - default-jdk
+   - default-jre
+   - docker.io
+
+- name: copy jenkins install file
+  copy:
+    src: jenkins_install.sh
+    dest: /tmp
+    owner: ubuntu
+    group: ubuntu
+    mode: 0644
+
+- name: Run jenkins install script
+  command: sh /tmp/jenkins_install.sh
+
+- name: copy kubectl install file
+  copy: 
+   src: kube_install.sh
+   dest: /tmp
+   owner: ubuntu
+   group: ubuntu
+   mode: 0644
+
+- name: Run kubectl install script
+  command: sh /tmp/kube_install.sh

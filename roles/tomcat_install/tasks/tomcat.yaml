@@ -1,0 +1,12 @@
+---
+- name: copy tomcat install file
+  copy: 
+   src: tomcat_install.sh
+   dest: /tmp
+   owner: ubuntu
+   group: ubuntu
+   mode: 0644
+
+- name: Run tomcat install script
+  command: sh /tmp/tomcat_install.sh
+  ignore_errors: true

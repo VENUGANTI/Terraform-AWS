@@ -1,0 +1,15 @@
+---
+- hosts: jenkins
+  become: yes
+  roles:
+   - { role: jenkins_install, become: yes }
+
+     #- hosts: tomcat
+     #become: yes
+     #roles: 
+     #- { role: tomcat_install, become: yes }
+
+- hosts: nexus
+  become: yes
+  roles: 
+   - { role: nexus_install, become: yes } 
